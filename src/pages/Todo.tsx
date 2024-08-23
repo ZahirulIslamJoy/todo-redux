@@ -1,6 +1,6 @@
 import { useGetTodosQuery } from "@/redux/features/api/api";
 import { addTodo, deleteTodo } from "@/redux/features/todoSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppDispatch } from "@/redux/hooks";
 import { FormEvent } from "react";
 
 const Todo = () => {
@@ -9,11 +9,17 @@ const Todo = () => {
 
   const { isLoading ,data : todos}=useGetTodosQuery(undefined);
 
-  console.log(todos)
- 
   if(isLoading){
     return <p>Loading....</p>
   }
+
+//   useEffect(()=>{
+//     fetch("https://jsonplaceholder.typicode.com/todos")
+//     .then(res => res.json())
+//     .then(data => console.log(data))
+//   },[])
+
+
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
