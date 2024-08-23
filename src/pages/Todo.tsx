@@ -1,11 +1,19 @@
+import { useGetTodosQuery } from "@/redux/features/api/api";
 import { addTodo, deleteTodo } from "@/redux/features/todoSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { FormEvent } from "react";
 
 const Todo = () => {
   const dispatch = useAppDispatch();
-  const { todos } = useAppSelector((state) => state.todos);
-  console.log(todos);
+  //const { todos } = useAppSelector((state) => state.todos);
+
+  const { isLoading ,data : todos}=useGetTodosQuery(undefined);
+
+  console.log(todos)
+ 
+  if(isLoading){
+    return <p>Loading....</p>
+  }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,7 +66,7 @@ const Todo = () => {
         </form>
       </div>
       <div>
-        {todos.map((todo) => (
+        {todos?.map((todo:any) => (
           <div key={todo.id} className="flex gap-4 bg-blue-300 p-4 m-4">
             <p>{todo.title}</p>
             <p>{todo.description}</p>
