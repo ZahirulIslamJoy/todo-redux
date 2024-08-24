@@ -9,8 +9,14 @@ export const baseApi = createApi({
                 url:"/todos",
                 method:"GET"
             })
+        }),
+        addTodos:builder.mutation({
+            query:()=>({
+                url:"/posts",
+                method:"POST"
+            })
         })
     })
 })
 
-export const {useGetTodosQuery}=baseApi
+export const {useGetTodosQuery , useAddTodosMutation}=baseApi

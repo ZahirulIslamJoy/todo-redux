@@ -1,5 +1,5 @@
-import { useGetTodosQuery } from "@/redux/features/api/api";
-import { addTodo, deleteTodo } from "@/redux/features/todoSlice";
+import { useAddTodosMutation, useGetTodosQuery } from "@/redux/features/api/api";
+import { deleteTodo } from "@/redux/features/todoSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import { FormEvent } from "react";
 
@@ -9,15 +9,15 @@ const Todo = () => {
 
   const { isLoading ,data : todos}=useGetTodosQuery(undefined);
 
+
+  const [addTodo ,{data}]=useAddTodosMutation();
+
+  console.log(data)
+
   if(isLoading){
     return <p>Loading....</p>
   }
 
-//   useEffect(()=>{
-//     fetch("https://jsonplaceholder.typicode.com/todos")
-//     .then(res => res.json())
-//     .then(data => console.log(data))
-//   },[])
 
 
 
@@ -31,11 +31,11 @@ const Todo = () => {
     ).value;
     const id = Math.random().toString(36).substring(2, 7);
     const data = {
-      id,
+     userId: id,
       title,
-      description,
+     body: description,
     };
-    dispatch(addTodo(data));
+      addTodo(data)
   };
 
 
